@@ -17,7 +17,14 @@ env.Append(CPPPATH=["src/"])
 sources = Glob("src/*.cpp")
 env.Append(CPPPATH=["hidapi-win/include"])  # Add the path to hidapi headers
 env.Append(LIBPATH=["hidapi-win/x64"])  # Add the path to hidapi library
-env.Append(LIBS=["hidapi"])  # Link against hidapi library
+
+if env["platform"] == "linux":
+    env.Append(LIBPATH=["hidapi/linux"])
+    env.Append(LIBS=["hidapi-hidraw"])  # Link against hidapi library
+    env.Append(CPPPATH=["hidapi/hidapi"])
+else:
+    env.Append(LIBS=["hidapi"])
+
 
 if env["platform"] == "macos":
     library = env.SharedLibrary(
