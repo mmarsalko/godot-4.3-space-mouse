@@ -6,7 +6,7 @@
 
 #include <hidapi.h>
 
-#define MODELS 7
+#define MODELS 8
 #define IDS 3
 
 //Define your class for the space mouse
@@ -27,7 +27,10 @@ public:
 		// universal receiver
 		{ 0x256f, 0xc652, 0x01 },
 		// space pilot pro
-		{ 0x046d, 0xc629, 0x00 }
+		{ 0x046d, 0xc629, 0x00 },
+                // space mouse wireless
+                { 0x256f, 0xc63a, 0x01 },
+
 	};
 
 	enum Format {
