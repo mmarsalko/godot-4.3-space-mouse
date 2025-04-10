@@ -1,10 +1,10 @@
 # Forked from MrVolans and recompiled for Godot 4.3
 
-- Bundled library is only compiled for windows, feel free to contribute libraries for other platforms.
+- Windows and Linux libraries are bundled. Feel free to contribute libraries for other platforms.
 - only supports perspective mode, inputs are disabled while in orthogonal projection mode due to bugs
 - Updates will be slow, as I had no GDExtension experience prior to this project.
 
-## Building from source 
+## Building from source on Windows
 You need Scons, godot-cpp (GDExtension) and the HIDAPI library
 
 Update the bundeled Sconstruct to locate the HIDAPI library you downloaded, and build the godot-cpp repo to create the headers for GDExtension.
@@ -16,6 +16,29 @@ The library will be placed inside the addons/bin ready to be used.
 lastly update the spacemouse.GDExtension to include the path for the library suited for your platform. 
 
 When building with Scons it is likely that the libraries will be placed under "spacemouse_test/addons/spacemouse", if not they will be located under "addons/bin"
+
+## Building from source on Linux
+1. Clone this repo (with submodules) and install scons:
+```
+git clone --recurse-submodules <git_branch>
+apt install scons
+```
+2. If your distro doesn't have hidpi libs, build hidpi from source
+```
+cd linux/
+make -f Makefile-manual
+```
+3. Run scons from the root directory
+
+## Adding newly released mice on Linux
+1. Get the `vendor_id:product_id` pair for your device:
+```
+lsusb | grep -i spacemouse
+# Example output (take the 2 hex values):
+Bus 001 Device 021: ID 256f:c63a 3Dconnexion SpaceMouse Wireless BT
+```
+
+2. Add the hex values to `addons/spacemouse/bin/70-space-mouse.rules` and `src/spacemouse.h`
 
 ## LICENSE
 
